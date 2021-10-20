@@ -1,0 +1,17 @@
+CREATE TABLE  notes(
+title TEXT NOT NULL,
+body TEXT NOT NULL,
+background_color INTEGER NOT NULL,
+id INTEGER PRIMARY KEY AUTOINCREMENT
+);
+
+insertNotes:
+INSERT INTO notes (title, body, background_color) VALUES (?, ?, ?);
+
+
+
+selectAll:
+SELECT * FROM notes;
+
+deleteById:
+DELETE FROM notes WHERE id = ?;
