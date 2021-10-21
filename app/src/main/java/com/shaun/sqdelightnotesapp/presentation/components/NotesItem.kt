@@ -1,6 +1,10 @@
 package com.shaun.sqdelightnotesapp.presentation.components
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
@@ -11,9 +15,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
-import com.shaun.sqdelightnotesapp.ui.theme.Dimens.grid_1
+import androidx.compose.ui.unit.dp
 import com.shaun.sqdelightnotesapp.ui.theme.Dimens.grid_1_5
-import java.lang.Math.ceil
 import kotlin.math.ceil
 
 @ExperimentalMaterialApi
@@ -23,13 +26,23 @@ fun NotesItem(
     color:Long,
     onClick:()->Unit={},
 ) {
-    Card(onClick = onClick,backgroundColor = Color(color = color)) {
+
+    val cardColor= Color(color = color)
+
+    val width = if (Color(0xff202124)!=cardColor) 0.dp else 1.dp
+    Card(
+        onClick = onClick,
+        backgroundColor = cardColor,
+        border = BorderStroke(color = Color.White, width = width)
+    ) {
         Box(
-            modifier = Modifier.padding(grid_1_5).fillMaxWidth(),
+            modifier = Modifier
+                .padding(grid_1_5)
+                .fillMaxWidth(),
             contentAlignment = Alignment.Center
         ) {
 
-            Text(text = body,color = Color.White)
+            Text(text = body, color = Color.White)
         }
     }
 }
