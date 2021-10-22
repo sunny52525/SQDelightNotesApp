@@ -54,6 +54,9 @@ fun MainNavHost(mainViewModel: MainViewModel,navController: NavHostController) {
         composable(Routes.AddNote.route) {
 
             AddNotes(mainViewModel, onBackPress = {
+                mainViewModel.setVisibilityFab(true)
+                mainViewModel.setColor(0xff202124)
+                mainViewModel.setViewingMode(false)
                 navController.popBackStack()
 
             })

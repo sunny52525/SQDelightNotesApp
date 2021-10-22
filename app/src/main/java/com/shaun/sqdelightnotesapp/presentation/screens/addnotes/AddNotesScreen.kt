@@ -27,7 +27,6 @@ fun AddNotes(mainViewModel: MainViewModel, onBackPress: () -> Unit) {
     val scope = rememberCoroutineScope()
     BackHandler(enabled = true, onBack = {
         if (body.isNotEmpty()) {
-            mainViewModel.setVisibilityFab(true)
             if (mainViewModel.isInViewingMode.value) {
                 mainViewModel.editNote(title = title, color = color, body = body,id=mainViewModel.viewingNoteId.value)
             } else {
@@ -38,8 +37,7 @@ fun AddNotes(mainViewModel: MainViewModel, onBackPress: () -> Unit) {
             Toast.makeText(context, "Empty notes discarded", Toast.LENGTH_SHORT).show()
         }
 
-        mainViewModel.setColor(0xff202124)
-        mainViewModel.setViewingMode(false)
+
         onBackPress()
     })
 
@@ -85,7 +83,6 @@ fun AddNotes(mainViewModel: MainViewModel, onBackPress: () -> Unit) {
             backgroundColor = color,
             onDelete = {
                 mainViewModel.deleteNote(mainViewModel.viewingNoteId.value)
-                mainViewModel.setColor(0xff202124)
                 onBackPress()
 
             }
