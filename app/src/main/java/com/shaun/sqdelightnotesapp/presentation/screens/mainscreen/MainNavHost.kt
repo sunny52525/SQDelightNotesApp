@@ -12,11 +12,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navArgument
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.shaun.sqdelightnotesapp.navigation.Routes
 import com.shaun.sqdelightnotesapp.presentation.screens.addnotes.AddNotes
 import com.shaun.sqdelightnotesapp.ui.theme.KeepGray
-import com.shaun.sqdelightnotesapp.ui.theme.KeepLightGray
 
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
@@ -37,13 +37,22 @@ fun MainNavHost(mainViewModel: MainViewModel,navController: NavHostController) {
     NavHost(navController = navController, startDestination = Routes.Home.route, builder = {
 
         composable(Routes.Home.route) {
-            HomeScreen(mainViewModel)
+            HomeScreen(mainViewModel) {
+                with(it) {
+                    mainViewModel.setBody(body = body)
+                    mainViewModel.setTitle(title = title)
+                    mainViewModel.setColor(color = background_color)
+                    mainViewModel.setViewingMode(true)
+                    mainViewModel.setViewingNoteId(id)
+                    navController.navigate(Routes.AddNote.route)
+                }
+            }
         }
         composable(Routes.AddNote.route) {
 
             AddNotes(mainViewModel, onBackPress = {
                 navController.popBackStack()
-                mainViewModel.setVisibilityFab(true)
+
             })
         }
 

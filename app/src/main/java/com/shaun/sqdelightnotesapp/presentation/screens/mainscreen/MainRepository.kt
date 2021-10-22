@@ -22,11 +22,16 @@ class MainRepository(
         notesQuery.insertNotes(title = title, background_color = color, body = body)
 
     }
+
     fun getNotes(): Flow<List<Notes>> {
         return notesQuery.selectAll().asFlow().mapToList()
     }
 
-    fun deleteNote(id:Long){
+    fun deleteNote(id: Long) {
         notesQuery.deleteById(id)
+    }
+
+    fun editNote(title: String, color: Long, body: String, id: Long) {
+        notesQuery.updateById(title = title, background_color = color, body = body, id = id)
     }
 }

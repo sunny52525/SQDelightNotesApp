@@ -23,7 +23,7 @@ import com.shaun.sqdelightnotesapp.ui.theme.KeepGray
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @Composable
-fun HomeScreen(mainViewModel: MainViewModel) {
+fun HomeScreen(mainViewModel: MainViewModel,onNotesClick:(Notes)->Unit) {
 
 
     val notes: List<Notes> by mainViewModel.getNotes().collectAsState(listOf())
@@ -39,7 +39,7 @@ fun HomeScreen(mainViewModel: MainViewModel) {
             notes.forEach {
                 Column(modifier = Modifier.padding(grid_0_5)) {
                     NotesItem(body = it.body, color = it.background_color) {
-                        mainViewModel.deleteNote(it.id)
+                        onNotesClick(it)
                     }
                 }
 

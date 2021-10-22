@@ -24,6 +24,23 @@ class MainViewModel @Inject constructor(
     private val _isInAddNote = mutableStateOf<Boolean>(true)
     val isInAddNote: State<Boolean> = _isInAddNote
 
+
+    private val _isInViewingMode = mutableStateOf(false)
+    val isInViewingMode: State<Boolean> = _isInViewingMode
+    private val _viewingNoteId = mutableStateOf<Long>(0)
+    val viewingNoteId: State<Long> = _viewingNoteId
+
+    fun setViewingNoteId(id: Long) {
+        _viewingNoteId.value = id
+    }
+
+
+
+
+    fun setViewingMode(viewMode: Boolean) {
+        _isInViewingMode.value = viewMode
+    }
+
     fun setVisibilityFab(visible: Boolean) {
         _isInAddNote.value = visible
     }
@@ -49,4 +66,7 @@ class MainViewModel @Inject constructor(
 
     fun getNotes() = mainRepository.getNotes()
     fun deleteNote(id: Long) = mainRepository.deleteNote(id)
+    fun editNote(title: String, color: Long, body: String, id: Long) {
+    mainRepository.editNote(title,color,body,id)
+    }
 }

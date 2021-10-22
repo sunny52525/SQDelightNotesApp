@@ -46,6 +46,8 @@ class MainActivity : ComponentActivity() {
                         if (isVisible) {
                             FloatingActionButton(
                                 onClick = {
+                                    mainViewModel.setViewingMode(false)
+
                                     mainViewModel.setVisibilityFab(false)
                                     navController.navigate(Routes.AddNote.route)
                                 },

@@ -15,3 +15,6 @@ SELECT * FROM notes;
 
 deleteById:
 DELETE FROM notes WHERE id = ?;
+
+updateById:
+UPDATE notes SET title = ?,background_color=?,body=? WHERE id = ?;
