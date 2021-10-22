@@ -11,6 +11,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Palette
 import androidx.compose.runtime.Composable
@@ -30,7 +31,8 @@ import com.shaun.sqdelightnotesapp.utils.Constants
 fun TopBar(
     onColorChange: () -> Unit,
     onClick: () -> Unit,
-    backgroundColor: Color
+    backgroundColor: Color,
+    onDelete:()->Unit
 ) {
     TopAppBar(navigationIcon = {
         Icon(
@@ -41,12 +43,21 @@ fun TopBar(
         )
     }, actions = {
         Box(contentAlignment = Alignment.CenterEnd) {
-            Icon(
-                imageVector = Icons.Filled.Palette,
-                contentDescription = "Back",
-                modifier = Modifier.clickable(onClick = onColorChange),
-                tint = Color.White
-            )
+           Row {
+               Icon(
+                   imageVector = Icons.Filled.Palette,
+                   contentDescription = "Back",
+                   modifier = Modifier.clickable(onClick = onColorChange),
+                   tint = Color.White
+               )
+               Spacer(modifier = Modifier.width(10.dp))
+               Icon(
+                   imageVector = Icons.Filled.Delete,
+                   contentDescription = "Back",
+                   modifier = Modifier.clickable(onClick = onDelete),
+                   tint = Color.White
+               )
+           }
         }
     }, title = {
 
@@ -106,6 +117,7 @@ fun AddNotesUi(
     body: String,
     onColorChange: () -> Unit,
     backgroundColor: Long,
+    onDelete: () -> Unit,
     onBodyChange: (String) -> Unit
 ) {
     Column(
@@ -116,7 +128,8 @@ fun AddNotesUi(
         TopBar(
             onClick = onBack,
             onColorChange = onColorChange,
-            backgroundColor = Color(backgroundColor)
+            backgroundColor = Color(backgroundColor),
+            onDelete = onDelete
         )
         TitleTextField(
             value = title, onValueChange = onTitleChange,
@@ -213,7 +226,8 @@ fun AddNotesScreenPreview() {
         title = "Hello",
         onTitleChange = {},
         body = "",
-        onBodyChange = {}, onColorChange = {}, backgroundColor = 0xff000000
+        onBodyChange = {}, onColorChange = {}, backgroundColor = 0xff000000,
+        onDelete = {}
     )
 
 }

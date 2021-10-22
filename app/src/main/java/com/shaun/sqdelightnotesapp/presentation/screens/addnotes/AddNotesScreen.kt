@@ -53,19 +53,42 @@ fun AddNotes(mainViewModel: MainViewModel, onBackPress: () -> Unit) {
             })
         }) {
         AddNotesUi(
-            onBack = onBackPress,
+            onBack = {
+                if (body.isNotEmpty()) {
+                    mainViewModel.setVisibilityFab(true)
+                    if (mainViewModel.isInViewingMode.value) {
+                        mainViewModel.editNote(
+                            title = title,
+                            color = color,
+                            body = body,
+                            id = mainViewModel.viewingNoteId.value
+                        )
+                    } else {
+                        mainViewModel.addNotes(title = title, color = color, body = body)
+                    }
+
+                } else {
+                    Toast.makeText(context, "Empty notes discarded", Toast.LENGTH_SHORT).show()
+                }
+                onBackPress()
+            },
             title = title,
             onTitleChange = mainViewModel::setTitle,
             body = body,
             onBodyChange = mainViewModel::setBody,
             onColorChange = {
                 scope.launch {
-                    println("Hello")
                     state.show()
 
                 }
             },
-            backgroundColor = color
+            backgroundColor = color,
+            onDelete = {
+                mainViewModel.deleteNote(mainViewModel.viewingNoteId.value)
+                mainViewModel.setColor(0xff202124)
+                onBackPress()
+
+            }
         )
     }
 

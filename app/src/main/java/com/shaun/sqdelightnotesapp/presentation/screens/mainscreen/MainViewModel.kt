@@ -1,9 +1,12 @@
 package com.shaun.sqdelightnotesapp.presentation.screens.mainscreen
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.shaun.sqdelightnotesapp.Notes
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 
@@ -57,16 +60,24 @@ class MainViewModel @Inject constructor(
         _title.value = title
     }
 
-    fun addNotes(title: String, body: String, color: Long) {
+    fun addNotes(title: String, body: String, color: Long=0xff202124) {
         mainRepository.addNotes(title, body, color)
         setColor(0xff202124)
         setTitle("")
         setBody("")
     }
 
-    fun getNotes() = mainRepository.getNotes()
-    fun deleteNote(id: Long) = mainRepository.deleteNote(id)
+    fun getNotes(): Flow<List<Notes>> = mainRepository.getNotes()
+    fun deleteNote(id: Long) {
+        Log.d(TAG, "deleteNote: $id")
+        mainRepository.deleteNote(id)
+    }
+
     fun editNote(title: String, color: Long, body: String, id: Long) {
-    mainRepository.editNote(title,color,body,id)
+        mainRepository.editNote(title, color, body, id)
+    }
+
+    companion object {
+        private const val TAG = "MainViewModel"
     }
 }

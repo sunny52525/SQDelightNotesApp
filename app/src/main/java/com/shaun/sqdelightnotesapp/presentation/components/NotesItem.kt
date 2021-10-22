@@ -16,6 +16,7 @@ import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.shaun.sqdelightnotesapp.ui.theme.Dimens
 import com.shaun.sqdelightnotesapp.ui.theme.Dimens.grid_1_5
 import kotlin.math.ceil
 
@@ -27,22 +28,25 @@ fun NotesItem(
     onClick:()->Unit={},
 ) {
 
-    val cardColor= Color(color = color)
+    Column(modifier = Modifier.padding(Dimens.grid_0_5)) {
 
-    val width = if (Color(0xff202124)!=cardColor) 0.dp else 1.dp
-    Card(
-        onClick = onClick,
-        backgroundColor = cardColor,
-        border = BorderStroke(color = Color.White, width = width)
-    ) {
-        Box(
-            modifier = Modifier
-                .padding(grid_1_5)
-                .fillMaxWidth(),
-            contentAlignment = Alignment.Center
+        val cardColor = Color(color = color)
+
+        val width = if (Color(0xff202124) != cardColor) 0.dp else 1.dp
+        Card(
+            onClick = onClick,
+            backgroundColor = cardColor,
+            border = BorderStroke(color = Color.White, width = width)
         ) {
+            Box(
+                modifier = Modifier
+                    .padding(grid_1_5)
+                    .fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
 
-            Text(text = body, color = Color.White)
+                Text(text = body, color = Color.White)
+            }
         }
     }
 }
@@ -96,12 +100,15 @@ fun StaggeredVerticalGrid(
             height = height
         ) {
             val colY = IntArray(columns) { 0 }
-            placeables.forEach { placeable ->
+            placeables.forEach(
+
+            ) { placeable ->
                 val column = shortestColumn(colY)
                 placeable.place(
                     x = columnWidth * column,
-                    y = colY[column]
-                )
+                    y = colY[column],
+
+                    )
                 colY[column] += placeable.height
             }
         }

@@ -4,7 +4,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
@@ -16,8 +15,6 @@ import androidx.compose.ui.unit.dp
 import com.shaun.sqdelightnotesapp.Notes
 import com.shaun.sqdelightnotesapp.presentation.components.NotesItem
 import com.shaun.sqdelightnotesapp.presentation.components.StaggeredVerticalGrid
-import com.shaun.sqdelightnotesapp.ui.theme.Dimens.grid_0_5
-import com.shaun.sqdelightnotesapp.ui.theme.Dimens.grid_1
 import com.shaun.sqdelightnotesapp.ui.theme.KeepGray
 
 @ExperimentalMaterialApi
@@ -36,13 +33,10 @@ fun HomeScreen(mainViewModel: MainViewModel,onNotesClick:(Notes)->Unit) {
             .background(KeepGray)
     ) {
         StaggeredVerticalGrid(maxColumnWidth = 300.dp) {
-            notes.forEach {
-                Column(modifier = Modifier.padding(grid_0_5)) {
-                    NotesItem(body = it.body, color = it.background_color) {
-                        onNotesClick(it)
-                    }
+            notes.forEach { note ->
+                NotesItem(body = note.body, color = note.background_color) {
+                    onNotesClick(note)
                 }
-
             }
         }
 
